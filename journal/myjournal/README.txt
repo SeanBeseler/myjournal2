@@ -31,3 +31,5 @@ Getting Started
 - Run your project.
 
     env/bin/pserve development.ini
+
+link to website https://my-journal-.herokuapp.com
