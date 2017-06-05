@@ -15,19 +15,19 @@ def list_view(request):
     return Response(imported_text)
 
 def detail_view(request):
-    """Retruns the about.html as the home page"""
+    """Retruns the about.html as the detail page"""
     with io.open(EPath) as the_file:
         imported_text = the_file.read()
     return Response(imported_text)
 
 def create_view(request):
-    """Retruns the new.html as the home page"""
+    """Retruns the new.html as the crate page"""
     with io.open(SPath) as the_file:
         imported_text = the_file.read()
     return Response(imported_text)
 
 def update_view(request):
-    """Retruns the post.html as the home page"""
+    """Retruns the post.html as the update page"""
     with io.open(WPath) as the_file:
         imported_text = the_file.read()
     return Response(imported_text)

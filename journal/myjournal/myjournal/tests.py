@@ -5,6 +5,7 @@ from pyramid.response import Response
 
 
 def test_home_view_returns_response():
+    """checks the returns response for home"""
     from myjournal.views.default import list_view
     request = testing.DummyRequest()
     response = list_view(request)
@@ -12,6 +13,7 @@ def test_home_view_returns_response():
 
 
 def test_creat_view_returns_response():
+    """check the returns response for creat"""
     from myjournal.views.default import create_view
     request = testing.DummyRequest()
     response = create_view(request)
@@ -19,6 +21,7 @@ def test_creat_view_returns_response():
 
 
 def test_home_view_returns_good():
+    """check the status code for home"""
     from myjournal.views.default import list_view
     request = testing.DummyRequest()
     response = list_view(request)
@@ -26,6 +29,7 @@ def test_home_view_returns_good():
 
 
 def test_creat_view_returns_good():
+    """check the status code for creat"""
     from myjournal.views.default import create_view
     request = testing.DummyRequest()
     response = create_view(request)
