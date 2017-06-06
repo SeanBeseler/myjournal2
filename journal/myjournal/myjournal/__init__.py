@@ -6,7 +6,7 @@ def main(global_config, **settings):
     """
     config = Configurator(settings=settings)
     config.include('pyramid_jinja2')
-    config.include('.views')
+    #config.include('.views')
     #config.include('.models')
     config.include('.routes')
     config.add_static_view(name = "static", path = "myjournal:static")
