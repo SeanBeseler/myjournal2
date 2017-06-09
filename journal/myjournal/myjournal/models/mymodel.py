@@ -2,17 +2,17 @@ from sqlalchemy import (
     Column,
     Index,
     Integer,
-    Text,
+    Unicode,
+    DateTime
 )
 
 from .meta import Base
 
 
-class MyModel(Base):
-    __tablename__ = 'models'
+class Model_Entry(Base):
+    __tablename__ = 'entry'
     id = Column(Integer, primary_key=True)
-    name = Column(Text)
-    value = Column(Integer)
+    title  = Column(Unicode)
+    text = Column(Unicode)
+    date = Column(Unicode)
 
-
-Index('my_index', MyModel.name, unique=True, mysql_length=255)

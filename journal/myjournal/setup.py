@@ -20,6 +20,7 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'waitress',
+    'psycopg2',
 ]
 
 tests_require = [
@@ -56,7 +57,7 @@ setup(
             'main = myjournal:main',
         ],
         'console_scripts': [
-            'initialize_myjournal_db = myjournal.scripts.initializedb:main',
+            'initdb = myjournal.scripts.initializedb:main',
         ],
     },
 )
