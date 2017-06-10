@@ -2,4 +2,6 @@
 set -e
 cd myjournal
 python setup.py develop
+initdb productoin.ini
 python runapp.py
+
