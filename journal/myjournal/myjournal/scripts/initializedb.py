@@ -28,10 +28,10 @@ def usage(argv):
 
 def main(argv=sys.argv):
     Entry = [
-    {'id':0,'title' :'Sean Beseler', 'date':'6/3/17', 'text':'Pyramid is getting much clearer!'},
-    {'id':1,'title' :'Sean Beseler', 'date': '6/1/17', 'text':'To day we started learning how to add a SQL data to our website.'},
-    {'id':2,'title' : 'Sean Beseler', 'date': '5/30/17', 'text':'We stared graphs today as well as going over pyramid. I feel that I am way behind in pyramid'},
-    {'id':3,'title': 'Sean Beseler', 'date': '5/29/17', 'text': 'To day we had a long code review which did help with the sever project. Thanks for do it.'},
+        {'id':0,'title': 'Sean Beseler', 'date': '6/3/17', 'text': 'Pyramid is getting much clearer!'},
+        {'id':1,'title': 'Sean Beseler', 'date': '6/1/17', 'text': 'To day we started learning how to add a SQL data to our website.'},
+        {'id':2,'title': 'Sean Beseler', 'date': '5/30/17', 'text': 'We stared graphs today as well as going over pyramid. I feel that I am way behind in pyramid'},
+        {'id':3,'title': 'Sean Beseler', 'date': '5/29/17', 'text': 'To day we had a long code review which did help with the sever project. Thanks for do it.'},
     ]
     if len(argv) < 2:
         usage(argv)
@@ -39,6 +39,7 @@ def main(argv=sys.argv):
     options = parse_vars(argv[2:])
     setup_logging(config_uri)
     settings = get_appsettings(config_uri, options=options)
+    settings['sqlalchemy.url'] = os.environ.get('DATABASE_URL')
 
     engine = get_engine(settings)
     Base.metadata.drop_all(engine)
@@ -50,10 +51,9 @@ def main(argv=sys.argv):
         dbsession = get_tm_session(session_factory, transaction.manager)
         for en in Entry:
             entry = Model_Entry(
-                title =en['title'],
-                text =en['text'],
-                date =en['date'], 
-               )
+                title=en['title'],
+                text=en['text'],
+                date=en['date'],
+            )
 
             dbsession.add(entry)
-       
