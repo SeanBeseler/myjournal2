@@ -7,8 +7,6 @@ def main(global_config, **settings):
     """
     config = Configurator(settings=settings)
     settings['sqlalchemy.url'] = os.environ.get('DATABASE_URL')
-    print('hrer' ,os.environ.get('DATABASE_URL'))
-
     config.include('pyramid_jinja2')
     config.include('.models')
     config.include('.routes')
