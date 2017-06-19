@@ -2,6 +2,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import configure_mappers
 import zope.sqlalchemy
+import os
 
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
@@ -57,6 +58,7 @@ def includeme(config):
 
     """
     settings = config.get_settings()
+    settings['sqlalchemy.url'] = os.environ.get('DATABASE_URL')
 
     # use pyramid_tm to hook the transaction lifecycle to the request
     config.include('pyramid_tm')

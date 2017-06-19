@@ -6,6 +6,9 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPFound
 from myjournal.models import Model_Entry
+from myjournal.security import check_credentials
+from pyramid.security import remember, forget
+from pyramid.session import check_csrf_token
 import datetime
 HERE = os.path.dirname(__file__)
 Path = os.path.dirname(HERE)
@@ -28,12 +31,13 @@ def detail_view(request):
         return {'entrys': entry}
 
 
-@view_config(route_name='create', renderer='../templates/New.jinja2')
+@view_config(route_name='create', renderer='../templates/New.jinja2', permission="secret")
 def create_view(request):
     """Retruns the new.html as the crate page"""
     if request.method == "GET" :
         return {}
     elif request.method == "POST":
+        check_csrf_token(request)
         new_entry = Model_Entry(
             title = request.POST['title'],
             text = request.POST['text'],
@@ -43,7 +47,7 @@ def create_view(request):
         return HTTPFound( location= request.route_url('home'))
 
 
-@view_config(route_name='update', renderer='../templates/about.jinja2')
+@view_config(route_name='update', renderer='../templates/about.jinja2', permission="secret")
 def update_view(request):
     """Retruns the post.html as the update page"""
     the_id = int(request.matchdict['id'])
@@ -57,8 +61,22 @@ def update_view(request):
             "text":entry.text
         }
     if request.method == "POST":
+        check_csrf_token(request)
         entry.title = request.POST['title']
         entry.text = request.POST['text']
         return HTTPFound( location= request.route_url('home'))
     
     return {}
+@view_config(route_name='login', renderer='../templates/login.jinja2')
+def login_view(request):
+    """view for a login page"""
+    if request.method =="GET":
+        return{}
+    if request.method == "POST":
+        import pdb; pdb.set_trace()
+        username = request.POST['username']
+        password = request.POST['password']
+        if check_credentials(username, password):
+            headers = remember(request, username)
+            return HTTPFound(location=request.route_url('home'),headers = headers)
+        return{'error':'Bad username or password'}
