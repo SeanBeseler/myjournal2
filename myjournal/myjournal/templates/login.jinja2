@@ -75,21 +75,24 @@
             </div>
         </div>
     </header>
-
+{% if error %}
+{{error}}
+{% endif %}
 <form method="POST">
-    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}" />
     <ul>
         <li>
-        <label for="title">Title:</label>
-        <input type="text" name="title" required/>
+            <label for="username">Username: </label>
+            <input type="text" name="username" required/>
         </li>
         <li>
-            <label for="text">Enter text here:</label>
-            <textarea type="text" name="text" required></textarea>
+            <label for="password">Password: </label>
+            <input type="password" name="password"requried/>
         </li>
         <li>
-            <input type="submit" value="submit"/>
+            <input type="submit" value="login"/>
         </li>
+    </ul>
+</form>
 
                 <!-- Pager -->
                 <ul class="pager">
